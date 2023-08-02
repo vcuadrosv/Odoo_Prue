@@ -1,0 +1,166 @@
+<odoo>
+    <data>
+        <!-- Vistas de formulario -->
+        <record id="view_prueba1_visit_form" model="ir.ui.view">
+            <field name="name">view.prueba1.visit.form</field>
+            <field name="model">prueba1.visit</field>
+            <field name="arch" type="xml">
+                <form string="Visita" attrs="{'style': 'background-color: red;'}">
+                    <header>
+                    <button name="custom_button_action" type="object" string="enviar"/>
+                    </header>
+                    <sheet>
+                        <group name="grupo top">
+                            <group name="group_left">
+                                <field name="customer"/>
+                                <field name="date"/>
+                                <field name="type"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="name"/>
+                                <field name="done"/>
+                                <field name="auto" options="{'no_create': True, 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_prueba1_visit1" model="ir.ui.view">
+            <field name="name">view.prueba1.visit1</field>
+            <field name="model">prueba1.visit</field>
+            <field name="arch" type="xml">
+                <form string="Visita 1">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="imagen"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_fabricante_vehiculo_form">
+            <field name="name">fabricante.vehiculo.form</field>
+            <field name="model">fabricante.vehiculo</field>
+            <field name="arch" type="xml">
+                <form string="Fabricantes de Vehículos">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="marca"/>
+                                <field name="imagen" widget="image" class="custom-image"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Vistas en árbol -->
+        <record id="view_prueba1_visit_tree" model="ir.ui.view">
+            <field name="model">prueba1.visit</field>
+            <field name="name">view.prueba1.visit.tree</field>
+            <field name="arch" type="xml">
+                <tree string="Visitas">
+                    <field name="customer"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="date"/>
+                    <field name="done"/>
+                </tree>
+            </field>   
+        </record>
+
+        <record id="view_prueba1_visit_tree_jmv" model="ir.ui.view">
+            <field name="model">prueba1.visit</field>
+            <field name="name">view.prueba1.visit.tree.jmv</field>
+            <field name="arch" type="xml">
+                <tree string="Visitas JMV">
+                    <field name="name"/>
+                    <field name="imagen"/>
+                </tree>
+            </field>   
+        </record>
+
+        <record model="ir.ui.view" id="view_fabricante_vehiculo_tree">
+            <field name="name">fabricante.vehiculo.tree</field>
+            <field name="model">fabricante.vehiculo</field>
+            <field name="arch" type="xml">
+                <tree string="Fabricantes de Vehículos" create="true">
+                    <field name="marca"/>
+                    <field name="imagen" widget="image" options="{'size': [70, 70]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista Kanban para el modelo de Tarea -->
+        <record model="ir.ui.view" id="view_tarea_kanban">
+            <field name="name">view.tarea.kanban</field>
+            <field name="model">fabricante.vehiculo</field>
+            <field name="arch" type="xml">
+                <kanban class= "oe_custom_views_kanban">
+                    <field name="id"/>
+                    <field name="marca"/>
+                    <field name="imagen"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="o_kanban_image" style="max-width: 200px; max-height: 200px;">
+                                <img alt = "avatar" t-att-src = "kanban_image('fabricante.vehiculo','imagen', record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong class="oe_kanban_record_title">
+                                    <field name="marca"/>
+                                </strong>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Acciones -->
+        <record id="action_prueba1_view" model="ir.actions.act_window">
+            <field name="name">Acción Visitas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">prueba1.visit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">Visitas</p>
+                <p>Click 'Nuevo' para añadir nuevos elementos</p>
+            </field>
+        </record>
+
+        <record id="action_jmv" model="ir.actions.act_window">
+            <field name="name">Acción jmv</field>
+            <field name="target">current</field>
+            <field name="res_model">prueba1.visit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">Visitas</p>
+                <p>Click 'Nuevo' para añadir nuevos elementos</p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fabricante_vehiculo">
+            <field name="name">Fabricantes de Vehículos</field>
+            <field name="res_model">fabricante.vehiculo</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!-- Menús -->
+        <menuitem id="menu_prueba1" name="Menú" sequence="10"/>
+        <menuitem id="visit_categoria" name="Operaciones" parent="menu_prueba1" sequence="0"/>
+        <menuitem id="visit" name="Visitas" parent="visit_categoria" sequence="0" action="action_prueba1_view"/>
+        <menuitem id="jmv" name="JMV" parent="visit_categoria" sequence="1" action="action_jmv"/>
+        <menuitem id="menu_fabricante_vehiculo" name="Fabricantes" parent="menu_prueba1" sequence="20" action="action_fabricante_vehiculo"/>
+        
+
+
+
+    </data>
+</odoo>

@@ -1,0 +1,79 @@
+<odoo>
+    <data>
+        <!-- Vista del formulario  -->
+        <record id="view_visit_form" model="ir.ui.view">
+            <field name="name">visit.form</field>
+            <field name="model">test.visit</field>
+            <field name="arch" type="xml">
+                <form string="visita">
+                    <!-- Campos del formulario -->
+                    <sheet>
+                      <group name="grupo top">
+                        <group name="group_left">
+                            <field name="customer"/>
+                            <field name="date"/>
+                            <field name="type"/>
+                        </group>
+                        <group name="group_rigth">
+                            <field name="name"/>
+                            <field name="done"/>
+                        </group>
+                      </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- vista arbol -->
+        <record id="view_visit_form_tree" model="ir.ui.view">
+            <field name="model">test.visit</field>
+            <field name="name">visit.form</field>
+            <field name="arch" type="xml">
+                <tree string= "Visit">
+                    <field name="customer"/>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="date"/>
+                </tree>
+            </field>   
+        </record>  
+        <!-- La accion enlaza el elemento vista con el elemento menu -->
+        <record id="action_test_view" model="ir.actions.act_window">
+            <field name="name">Menu</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">test.visit</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">
+                  visitas 
+                </p>
+                <p>
+                  Click 'Nuevo' para añadir nuevos elementos
+                </p>
+            </field>
+                
+        </record>
+
+        <!-- Menu principal que se puede detallar en la pagina principal  --> 
+        <menuitem
+          id="_menu_test"
+          name="Menu"
+          sequence="10"/>
+        <!-- Menu secundario lllamando al principal -->
+        <menuitem 
+          id="_visit_categoria"
+          name="Operaciones"
+          parent="_menu_test"
+          sequence="0"/>
+        <!-- Menu terciario parent llama a los anteriores y tiene el elemento vista tree o formulario-->
+        <menuitem 
+          id="_visit_"
+          name="Visitas"
+          parent="_visit_categoria"
+          sequence="0"
+          action="action_test_view"/>
+
+
+
+    </data>
+</odoo>

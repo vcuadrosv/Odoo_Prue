@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <!-- Vistas de formulario -->
+        <!-- Vistas de formulario >
         <record id="view_prueba1_visit_form" model="ir.ui.view">
             <field name="name">view.prueba1.visit.form</field>
             <field name="model">prueba1.visit</field>
@@ -41,7 +41,7 @@
                     </sheet>
                 </form>
             </field>
-        </record>
+        </record-->
 
         <record model="ir.ui.view" id="view_fabricante_vehiculo_form">
             <field name="name">fabricante.vehiculo.form</field>
@@ -60,8 +60,47 @@
             </field>
         </record>
 
+        <record id="view_ficha_empleados_form" model="ir.ui.view">
+            <field name="name">ficha.empleados.form</field>
+            <field name="model">ficha.empleados</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>Información del Empleado</h1>
+                        </div>
+                    <group name="grupo top">
+                        <group name="group_left">
+                            <div class="oe_avatar">
+                                <field name="Foto" widget="image" class="oe_avatar_image"/>
+                            </div>
+                                <field name="nombre"/>
+                                <field name="nombre2"/>
+                                <field name="apellido"/>
+                                <field name="apellido2"/>
+                                <field name="numero_cedula"/>
+                                <field name="tipo"/>
+                        </group>   
+                        <group name="group_right">
+                                <field name="fecha_nacimiento"/>
+                                <field name="cargo"/>
+                                <field name="direccion"/>
+                                <field name="tipo_sangre"/>
+                                <field name="email"/>
+                                <field name="estado"/>
+                                <field name="sexo"/>
+                                <field name="jornada"/>
+                        </group>
+                    </group>                    
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        
 
-        <!-- Vistas en árbol -->
+
+        <!-- Vistas en árbol >
         <record id="view_prueba1_visit_tree" model="ir.ui.view">
             <field name="model">prueba1.visit</field>
             <field name="name">view.prueba1.visit.tree</field>
@@ -85,7 +124,7 @@
                     <field name="imagen"/>
                 </tree>
             </field>   
-        </record>
+        </record-->
 
         <record model="ir.ui.view" id="view_fabricante_vehiculo_tree">
             <field name="name">fabricante.vehiculo.tree</field>
@@ -93,12 +132,27 @@
             <field name="arch" type="xml">
                 <tree string="Fabricantes de Vehículos" create="true">
                     <field name="marca"/>
-                    <field name="imagen" widget="image" options="{'size': [70, 70]}"/>
                 </tree>
             </field>
         </record>
 
-        <!-- Vista Kanban para el modelo de Tarea -->
+        <record id="view_ficha_empleados_tree" model="ir.ui.view">
+            <field name="name">ficha.empleados.tree</field>
+            <field name="model">ficha.empleados</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="nombre"/>
+                    <field name="apellido"/>
+                    <field name="tipo"/>
+                    <field name="numero_cedula"/>
+                    <field name="estado"/>
+                    <field name="jornada"/>
+                </tree>
+            </field>
+        </record>
+        
+
+        <!-- Vista Kanban para el modelo de Tarea-->
         <record model="ir.ui.view" id="view_tarea_kanban">
             <field name="name">view.tarea.kanban</field>
             <field name="model">fabricante.vehiculo</field>
@@ -123,7 +177,7 @@
             </field>
         </record>
 
-        <!-- Acciones -->
+        <!-- Acciones >
         <record id="action_prueba1_view" model="ir.actions.act_window">
             <field name="name">Acción Visitas</field>
             <field name="type">ir.actions.act_window</field>
@@ -144,7 +198,7 @@
                 <p class="view_documents_create">Visitas</p>
                 <p>Click 'Nuevo' para añadir nuevos elementos</p>
             </field>
-        </record>
+        </record-->
 
         <record model="ir.actions.act_window" id="action_fabricante_vehiculo">
             <field name="name">Fabricantes de Vehículos</field>
@@ -152,11 +206,23 @@
             <field name="view_mode">tree,form,kanban</field>
         </record>
 
+        <record id="action_ficha_empleados" model="ir.actions.act_window">
+            <field name="name">Ficha de Empleados</field>
+            <field name="target">current</field>
+            <field name="res_model">ficha.empleados</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">Visitas</p>
+                <p>Click 'Nuevo' para añadir nuevos elementos</p>
+            </field>
+        </record>
+        
+
         <!-- Menús -->
-        <menuitem id="menu_prueba1" name="Menú" sequence="10"/>
-        <menuitem id="visit_categoria" name="Operaciones" parent="menu_prueba1" sequence="0"/>
-        <menuitem id="visit" name="Visitas" parent="visit_categoria" sequence="0" action="action_prueba1_view"/>
-        <menuitem id="jmv" name="JMV" parent="visit_categoria" sequence="1" action="action_jmv"/>
+        <menuitem id="menu_prueba1" name="JMV" sequence="10"/>
+        <menuitem id="visit_categoria" name="Empleados" parent="menu_prueba1" sequence="0"/>
+        <menuitem id="visit" name="Ficha de Empleados" parent="visit_categoria" sequence="0" action="action_ficha_empleados"/>
+        <!-- menuitem id="jmv" name="JMV" parent="visit_categoria" sequence="1" action="action_jmv"/-->
         <menuitem id="menu_fabricante_vehiculo" name="Fabricantes" parent="menu_prueba1" sequence="20" action="action_fabricante_vehiculo"/>
         
 

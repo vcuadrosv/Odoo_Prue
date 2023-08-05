@@ -2,5 +2,15 @@
     max-width: 30px;
     max-height: 30px;
 }
+.oe_avatar {
+    float: left;
+    margin-right: 10px;
+}
 
+.oe_avatar_image {
+    max-width: 100px; /* Ajusta el tamaño de la imagen según sea necesario */
+}
 
+.oe_name_fields {
+    margin-top: 10px;
+}

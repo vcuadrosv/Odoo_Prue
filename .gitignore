@@ -2,8 +2,3 @@ Odoo_Prue/
 venv/
 custom_crm/
 .vscode/
-venv
-.vscode
-/venv
-/.vscode
-README.md

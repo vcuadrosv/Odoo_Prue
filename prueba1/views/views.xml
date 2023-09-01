@@ -66,32 +66,36 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <div class="oe_title">
-                            <h1>Información del Empleado</h1>
-                        </div>
-                    <group name="grupo top">
-                        <group name="group_left">
-                            <div class="oe_avatar">
-                                <field name="Foto" widget="image" class="oe_avatar_image"/>
+                        <group>
+                            <div class="oe_title">
+                                <h1>MODULO DE EMPLEADOS</h1>
                             </div>
+                            <group>
+                                <div class="oe_avatar">
+                                    <field name="Foto" widget="image" class="oe_avatar_image" />
+                                </div>
+                            </group>
+                        </group>                
+                        <separator string="Informacion del empleado"/> 
+                        <group>
+                            <group>
                                 <field name="nombre"/>
-                                <field name="nombre2"/>
                                 <field name="apellido"/>
-                                <field name="apellido2"/>
-                                <field name="numero_cedula"/>
                                 <field name="tipo"/>
-                        </group>   
-                        <group name="group_right">
+                                <field name="numero_cedula"/>
+                                <field name="celular"/>
+                                <field name="sexo"/>
+                            </group>
+                            <group>
                                 <field name="fecha_nacimiento"/>
                                 <field name="cargo"/>
                                 <field name="direccion"/>
                                 <field name="tipo_sangre"/>
                                 <field name="email"/>
                                 <field name="estado"/>
-                                <field name="sexo"/>
-                                <field name="jornada"/>
+                                <field name="tipos_licencia_conducir"/>
+                            </group>
                         </group>
-                    </group>                    
                     </sheet>
                 </form>
             </field>
@@ -99,6 +103,252 @@
         
         
 
+        <record model="ir.ui.view" id="view_control_mantenimiento_form">
+            <field name="name">control.mantenimiento.form</field>
+            <field name="model">control.mantenimiento</field>
+            <field name="arch" type="xml">
+                <form string="Mantenimientos">
+                    <sheet>
+                        <group>
+                            <div class="oe_title">
+                                <h1>FICHA TÉCNICO MECÁNICA</h1>
+                            </div>
+                            <separator string="Fabricantes"/> 
+                            <group>
+                                <div class = "custom-brand-left">
+                                    <field name="vehiculo_marca" class="custom-title"/>
+                                </div>
+                                <div class = "custom-image-right" >
+                                    <field name="vehiculo_imagen" widget="image" class="oe_avatar"/>
+                                </div>
+                            </group>                              
+                        </group>                
+                        <separator string="Informacion del vehiculo"/> 
+                        <group>
+                            <group>
+                                <field name="responsable_id"/>
+                                <field name="placa"/>
+                                <field name="ano"/>
+                                <field name="modelo_vehiculo"/>
+                            </group>
+                            <group>
+                                <field name="version"/>
+                                <field name="color"/>
+                                <field name="combustible"/>
+                                <field name="tipo_vehiculo"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Detalles de mantenimiento">
+                                <group>
+                                    <group>
+                                    <field name="fecha"/>
+                                    <field name="tipo_mantenimiento"/>
+                                    <field name="proveedor_servicios" attrs="{'invisible': [('tipo_mantenimiento', '!=', 'correctivo')]}"/>
+                                    <field name="costo"/>
+                                    </group>
+                                    <group>
+                                    <field name="descripcion" />
+                                    <field name="piezas_reemplazadas" string="Piezas Reemplazadas o Reparadas"/>
+                                    <field name="adjuntos" string="Adjuntos" widget="many2many_binary"/>
+                                    <field name="extintor"/>
+                                    </group>
+                                </group>                               
+                            </page>
+                            <page string="Kilometraje">
+                                <group>
+                                    <field name="kilometrajes" widget="one2many" string = "" >
+                                        <tree editable="bottom" >
+                                            <field name="kilometraje_actual"/>
+                                            <field name="proximo_mantenimiento"/>
+                                            <field name="kilometraje_faltante" readonly="1"/>
+                                        </tree>
+                                        <form>
+                                            <group>
+                                                <field name="kilometraje_actual"/>
+                                                <field name="proximo_mantenimiento"/>
+                                                <field name="kilometraje_faltante" readonly="1"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_ficha_extintores_form" model="ir.ui.view">
+            <field name="name">ficha.extintores.form</field>
+            <field name="model">ficha.extintores</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <div class="oe_title">
+                                <h1>Extintores Vehiculares</h1>
+                            </div>
+                        </group>                
+                        <separator string="Informacion de extintores"/> 
+                        <group>
+                            <group>
+                                <field name="modelo_extintor"/>
+                                <field name="placa_responsable"/>
+                                <field name="fabricante_extintor"/>
+                                <field name="capacidad"/>
+                            </group>
+                            <group>
+                                <field name="tiempo_descarga"/>
+                                <field name="alcance_efectivo"/>
+                                <field name="presion_trabajo"/>
+                                <field name="soporte_montaje"/>
+                            </group>
+                        </group>
+                        <separator string="Control y Mantenimiento"/>
+                        <group>
+                            <group>
+                                <field name="manometro_presion"/>
+                                <field name="temperatura_almacenamiento"/>
+                                <field name="clasificacion_fuego"/>
+                                <field name="tipo_extintor"/>
+                            </group>
+                            <group>
+                                <field name="fecha_fabricacion"/>
+                                <field name="fecha_vencimiento"/>
+                                <field name="fecha_recarga"/>
+                                <field name="instrucciones_mantenimiento"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+                <!-- Vista de formulario para SeguroVehiculo -->
+                <record id="view_seguro_vehiculo_form" model="ir.ui.view">
+                    <field name="name">seguro.vehiculo.form</field>
+                    <field name="model">seguro.vehiculo</field>
+                    <field name="arch" type="xml">
+                        <form>
+                            <sheet>
+                                <group>
+                                    <div class="oe_title">
+                                        <h1>Seguro Vehicular</h1>
+                                    </div>
+                                    <separator string="Informacion de la compañia de seguros"/> 
+                                    <!-- Información de la Compañía de Seguros -->
+                                    <field name="compania_seguros"/>
+                                    <field name="numero_poliza"/>
+                                    <field name="contacto_compania"/>
+                                </group>
+                                <separator string="Detalles de la Póliza"/> 
+                                <!-- Detalles de la Póliza -->
+                                <group>
+                                    <group>
+                                        <field name="tipo_cobertura"/>
+                                        <field name="fecha_inicio_poliza"/>
+                                        <field name="fecha_fin_poliza"/>
+                                    </group>
+                                    <group>
+                                        <field name="limite_cobertura"/>
+                                        <field name="deducible"/>
+                                    </group>
+                                </group>
+                                <separator string="Información del Vehículo Asegurado"/> 
+                                <!-- Información del Vehículo Asegurado -->
+                                <group>
+                                    <group>
+                                        <field name="placa_responsable"/>
+                                        <field name="vehiculo_marca"/>
+                                    </group>
+                                    <group>
+                                        <field name="modelo_vehiculo"/>
+                                        <field name="ano_vehiculo"/>
+                                    </group>
+                                </group>
+                                <!-- Detalles del Conductor Principal -->
+                                <separator string="Detalles del Conductor Principal"/>
+                                <group>
+                                    <group>
+                                        <field name="empleado_id"/>
+                                        <field name="nombre_conductor"/>
+                                        <field name="contacto_conductor"/>
+                                    </group>
+                                    <group>
+                                        <field name="fecha_nacimiento_conductor"/>
+                                        <field name="licencia_conducir"/>
+                                    </group>
+                                </group>
+                                <notebook>
+                                    <page string="Historial de Accidentes">
+                                        <group>
+                                            <!-- Historial de Accidentes -->
+                                            <field name="accidente_ids"/>
+                                        </group>
+                                    </page>
+                                    <page string="Reclamaciones">
+                                        <group>
+                                            <!-- Reclamaciones -->
+                                            <field name="reclamo_ids"/>
+                                        </group>
+                                    </page>
+                                    <page string="Documentos Relacionados">
+                                        <group>
+                                            <!-- Documentos Relacionados -->
+                                            <field name="documentos_poliza"  widget="many2many_binary"/>
+                                            <field name="documentos_reclamo"  widget="many2many_binary"/>
+                                        </group>
+                                    </page>
+                                </notebook>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+                <record id="view_seguro_accidente_form" model="ir.ui.view">
+                    <field name="name">seguro.accidente.form</field>
+                    <field name="model">seguro.accidente</field>
+                    <field name="arch" type="xml">
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="seguro_id"/>
+                                    <field name="fecha_accidente"/>
+                                    <field name="descripcion_accidente"/>
+                                    <field name="detalles_danio"/>
+                                    <field name="informacion_terceros"/>
+                                </group>
+                                <group>
+                                    <field name="fotos_accidente" string="fotos_accidente" widget="many2many_binary"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+                <record id="view_reclamo_seguro_form" model="ir.ui.view">
+                    <field name="name">reclamo.seguro.form</field>
+                    <field name="model">seguro.reclamo</field>
+                    <field name="arch" type="xml">
+                        <form>
+                            <sheet>
+                                <group>
+                                    <field name="seguro_id"/>
+                                    <field name="numero_reclamo"/>
+                                    <field name="fecha_reclamo"/>
+                                    <field name="estado_reclamo"/>
+                                    <field name="monto_reclamo"/>
+                                </group>
+                                <group>
+                                    <field name="documentos_reclamo"  widget="many2many_binary"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </record>
+                
+
+            
+                
 
         <!-- Vistas en árbol >
         <record id="view_prueba1_visit_tree" model="ir.ui.view">
@@ -177,6 +427,48 @@
             </field>
         </record>
 
+        <record id="view_control_mantenimiento_tree" model="ir.ui.view">
+            <field name="name">control.mantenimiento.tree</field>
+            <field name="model">control.mantenimiento</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="responsable_id"/>
+                    <field name="placa"/>
+                    <field name="combustible"/>
+                    <field name="vehiculo_marca"/>
+                    <field name="kilometrajes"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ficha_extintores_tree" model="ir.ui.view">
+            <field name="name">ficha.extintores.tree</field>
+            <field name="model">ficha.extintores</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="modelo_extintor"/>
+                    <field name="placa_responsable"/>
+                    <field name="manometro_presion"/>
+                    <field name="fecha_vencimiento"/>
+                    <field name="fecha_recarga"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_seguro_vehiculo_tree" model="ir.ui.view">
+            <field name="name">seguro.vehiculo.tree</field>
+            <field name="model">seguro.vehiculo</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="placa_responsable"/>
+                    <field name="compania_seguros"/>
+                    <field name="numero_poliza"/>
+                    <field name="tipo_cobertura"/>
+                    <field name="limite_cobertura"/>
+                </tree>
+            </field>
+        </record>
+
         <!-- Acciones >
         <record id="action_prueba1_view" model="ir.actions.act_window">
             <field name="name">Acción Visitas</field>
@@ -203,13 +495,46 @@
         <record model="ir.actions.act_window" id="action_fabricante_vehiculo">
             <field name="name">Fabricantes de Vehículos</field>
             <field name="res_model">fabricante.vehiculo</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">kanban,tree,form</field>
         </record>
 
         <record id="action_ficha_empleados" model="ir.actions.act_window">
             <field name="name">Ficha de Empleados</field>
             <field name="target">current</field>
             <field name="res_model">ficha.empleados</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">Visitas</p>
+                <p>Click 'Nuevo' para añadir nuevos elementos</p>
+            </field>
+        </record>
+
+        <record id="action_control_mantenimiento" model="ir.actions.act_window">
+            <field name="name">Mantenimiento</field>
+            <field name="target">current</field>
+            <field name="res_model">control.mantenimiento</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">Visitas</p>
+                <p>Click 'Nuevo' para añadir nuevos elementos</p>
+            </field>
+        </record>
+        
+        <record id="action_ficha_extintores" model="ir.actions.act_window">
+            <field name="name">Extintores</field>
+            <field name="target">current</field>
+            <field name="res_model">ficha.extintores</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="view_documents_create">Visitas</p>
+                <p>Click 'Nuevo' para añadir nuevos elementos</p>
+            </field>
+        </record>
+
+        <record id="action_seguro_vehiculo" model="ir.actions.act_window">
+            <field name="name">Seguro Vehiculos</field>
+            <field name="target">current</field>
+            <field name="res_model">seguro.vehiculo</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="view_documents_create">Visitas</p>
@@ -223,9 +548,11 @@
         <menuitem id="visit_categoria" name="Empleados" parent="menu_prueba1" sequence="0"/>
         <menuitem id="visit" name="Ficha de Empleados" parent="visit_categoria" sequence="0" action="action_ficha_empleados"/>
         <!-- menuitem id="jmv" name="JMV" parent="visit_categoria" sequence="1" action="action_jmv"/-->
-        <menuitem id="menu_fabricante_vehiculo" name="Fabricantes" parent="menu_prueba1" sequence="20" action="action_fabricante_vehiculo"/>
-        
-
+        <menuitem id="menu_vehiculos" name="Vehiculos" parent="menu_prueba1" sequence="20" />
+        <menuitem id="menu_mantenimiento" name="Mantenimiento Vehicular" parent="menu_vehiculos" sequence="20" action="action_control_mantenimiento" />
+        <menuitem id="menu_fabricante_vehiculo" name="Fabricantes" parent="menu_vehiculos" sequence="20" action="action_fabricante_vehiculo"/>
+        <menuitem id="menu_ficha_extintores" name="Ficha de extintores" parent="menu_vehiculos" sequence="20" action="action_ficha_extintores"/>
+        <menuitem id="menu_seguro_vehiculos" name="Seguro de Vehiculos" parent="menu_vehiculos" sequence="20" action="action_seguro_vehiculo"/>
 
 
     </data>
